@@ -1,46 +1,26 @@
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
-<link rel="import" href="/bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="/bower_components/iron-selector/iron-selector.html">
-<link rel="import" href="./core/routing/page-js.html">
+<link rel="import" href="/bower_components/iron-lazy-pages/iron-lazy-pages.html">
 <link rel="import" href="./core/routing/ps-routing-mixin.html">
 <link rel="import" href="./ps-app-home.html">
+<link rel="import" href="./core/styles/ps-styles.html">
 
 <dom-module id="ps-app-routing">
     <template>
 
-        <style>
-            /** 
-             * Before the component is defined, we can 
-             * use the :not(:defined) selector to build
-             * a layout that resembles the component.
-             *
-             * This selector is not polyfilled, so an alternative
-             * can be to use an attribute inactive, and remove it
-             * on the connectedCallback of the component.
-             */
-
-            ps-app-pizza:not(:defined) {
-                height: 100%;
-                width: 100%;
-                background-color: green;
-                display: block;
-            }
-
-            /**
-             * If we wan't our components to occupy all the content
-             * available we must set iron-pages height to 100%
-             */
-
-            iron-pages {
-                height: 100%;
-            }
+        <style include="ps-styles">
         </style>
 
-        <iron-pages role="main" selected="[[page]]" attr-for-selected="name">
-            <ps-app-home name="home"></ps-app-home>
-            <ps-app-pizza name="pizzas"></ps-app-pizza>
-            <ps-not-found name="fallback"></ps-not-found>
-        </iron-pages>
+        <iron-lazy-pages role="main" selected="[[page]]" attr-for-selected="name">
+            <template name="home" is="dom-if" restamp>
+                <ps-app-home></ps-app-home>
+            </template>
+            <template name="pizzas" is="dom-if" restamp>
+                <ps-app-pizza></ps-app-pizza>
+            </template>
+            <template name="fallback" is="dom-if" restamp>
+                <ps-not-found></ps-not-found>
+            </template>
+        </iron-lazy-pages>
 
     </template>
     <script>

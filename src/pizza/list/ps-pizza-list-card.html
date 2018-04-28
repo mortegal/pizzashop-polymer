@@ -23,6 +23,8 @@
 
             .ps-pizza-list-card__image {
                 padding: var(--padding-medium);
+                width: 400px;
+                height: 400px;
             }
 
             .ps-pizza-list-card__header {
@@ -36,8 +38,8 @@
 
         <paper-card class="ps-pizza-list-card" on-click="_goToDetails" on-mouseover="_onMouseOver" on-mouseout="_onMouseOut" hover$="[[_hover]]">
             <!-- Images will be too big on mobile, use properties sizes and srcset to adapt them to the viewport -->
-            <ps-img class="ps-pizza-list-card__image" src="[[_imgSrc]]" lazy-src="[[_imgLazySrc]] "></ps-img>
-            <h3 class="ps-pizza-list-card__header ">[[item.name]]</h3>
+            <ps-img class="ps-pizza-list-card__image" src="[[_imgSrc]]" lazy-src="[[_imgLazySrc]]"></ps-img>
+            <h3 class="ps-pizza-list-card__header ">[[pizza.name]]</h3>
         </paper-card>
 
     </template>
@@ -93,10 +95,10 @@
                 }
                 /**
                  * When clicking on an image we want to navigate
-                 * to its details, for that we use page 
+                 * to its details, for that we use Router 
                  */
                 _goToDetails() {
-                    page.show(`/pizzas/${this.pizza.id}`);
+                    Router.setRoute(`/pizzas/${this.pizza.id}`);
                 }
             }
             customElements.define(PsPizzaListCard.is, PsPizzaListCard)

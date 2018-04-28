@@ -1,31 +1,30 @@
 <link rel="import" href="/bower_components/polymer/polymer-element.html">
-<link rel="import" href="/bower_components/iron-pages/iron-pages.html">
-<link rel="import" href="/bower_components/iron-selector/iron-selector.html">
+<link rel="import" href="/bower_components/iron-lazy-pages/iron-lazy-pages.html">
 <link rel="import" href="../core/routing/ps-routing-mixin.html">
+<link rel="import" href="../core/styles/ps-styles.html">
 <link rel="import" href="./list/ps-pizza-list.html">
 
 <dom-module id="ps-pizza-routing">
     <template>
 
-        <style>
-            iron-pages {
-                height: 100%;
-            }
+        <style include="ps-styles">
         </style>
 
-        <iron-pages selected="[[page]]" attr-for-selected="name">
-            <ps-pizza-list name="list" pizzas="[[pizzas]]"></ps-pizza-list>
-            <ps-pizza-add name="add" pizzas="{{pizzas}}"></ps-pizza-add>
-            <ps-pizza-details name="details" pizzas="[[pizzas]]" pizza-id="[[context.params.id]]"></ps-pizza-details>
-            <ps-not-found name="fallback"></ps-not-found>
+        <iron-lazy-pages selected="[[page]]" attr-for-selected="name">
+            <template name="list" is="dom-if" restamp>
+                <ps-pizza-list></ps-pizza-list>
+            </template>
+            <template name="add" is="dom-if" restamp>
+                <ps-pizza-add></ps-pizza-add>
+            </template>
+            <template name="details" is="dom-if" restamp>
+                <ps-pizza-details pizza-id="[[params.0]]"></ps-pizza-details>
+            </template>
+            <template name="fallback" is="dom-if" restamp>
+                <ps-not-found></ps-not-found>
+            </template>
 
-            <!-- Below using the pizza store  -->
-
-            <!-- <ps-pizza-list name="list"></ps-pizza-list>
-            <ps-pizza-add name="add"></ps-pizza-add>
-            <ps-pizza-details name="details" pizza-id="[[context.params.id]]"></ps-pizza-details>
-            <ps-not-found name="fallback"></ps-not-found> -->
-        </iron-pages>
+        </iron-lazy-pages>
 
     </template>
     <script>   
